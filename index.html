@@ -2,77 +2,90 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dashboard Profesional - Seguridad de Contraseñas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Profesional - Cambio de Contraseñas</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
 </head>
 <body>
   <div class="dashboard-container">
-    <header class="fade-in">
-      <h1>🔐 Dashboard de Seguridad</h1>
-      <p>Estadísticas sobre la frecuencia de cambio de contraseñas</p>
+    <header>
+      <h1>🔐 Análisis Estadístico de Frecuencia de Cambio de Contraseñas</h1>
+      <p>Este dashboard presenta un estudio detallado de los hábitos de cambio de contraseñas de los usuarios. Incluye distribuciones, medidas de tendencia central y dispersión, así como comparaciones visuales para facilitar la toma de decisiones.</p>
     </header>
 
-    <!-- Métricas principales -->
-    <section class="metrics">
-      <div class="metric-card fade-in">
-        <h3>Media</h3>
-        <p id="media">--</p>
-      </div>
-      <div class="metric-card fade-in">
-        <h3>Mediana</h3>
-        <p id="mediana">--</p>
-      </div>
-      <div class="metric-card fade-in">
-        <h3>Varianza</h3>
-        <p id="varianza">--</p>
-      </div>
-      <div class="metric-card fade-in">
-        <h3>Desviación Est.</h3>
-        <p id="desviacion">--</p>
-      </div>
+    <!-- Métricas en línea -->
+    <section class="metrics-horizontal">
+      <div class="metric-card"><h3>Media</h3><p id="media">--</p></div>
+      <div class="metric-card"><h3>Mediana</h3><p id="mediana">--</p></div>
+      <div class="metric-card"><h3>Moda</h3><p id="moda">--</p></div>
+      <div class="metric-card"><h3>Rango</h3><p id="rango">--</p></div>
+      <div class="metric-card"><h3>Varianza</h3><p id="varianza">--</p></div>
+      <div class="metric-card"><h3>Desviación Est.</h3><p id="desviacion">--</p></div>
+      <div class="metric-card"><h3>Coef. Variación</h3><p id="cv">--</p></div>
     </section>
 
-    <!-- Gráficas -->
-    <section class="charts-grid">
-      <div class="chart-box fade-in">
-        <h4>📊 Frecuencia Absoluta</h4>
+    <!-- Gráficas comparativas -->
+    <section class="charts-section">
+      <div class="chart-box">
+        <h4>Frecuencia Absoluta</h4>
         <canvas id="barChart"></canvas>
       </div>
-      <div class="chart-box fade-in">
-        <h4>📈 Distribución Porcentual</h4>
+      <div class="chart-box">
+        <h4>Distribución Porcentual</h4>
         <canvas id="pieChart"></canvas>
       </div>
-      <div class="chart-box fade-in">
-        <h4>📉 Dispersión (FA vs Media)</h4>
+      <div class="chart-box">
+        <h4>Dispersión FA vs Clase</h4>
         <canvas id="scatterChart"></canvas>
       </div>
-      <div class="chart-box fade-in">
-        <h4>📆 Progresión Acumulativa (FAA)</h4>
+      <div class="chart-box">
+        <h4>Evolución FAA</h4>
         <canvas id="lineChart"></canvas>
+      </div>
+      <div class="chart-box">
+        <h4>Frecuencia y Clase Comparadas</h4>
+        <canvas id="comboChart"></canvas>
+      </div>
+      <div class="chart-box">
+        <h4>Boxplot de Categorías</h4>
+        <canvas id="boxplotChart"></canvas>
       </div>
     </section>
 
-    <!-- Tabla de datos -->
-    <section class="data-table fade-in">
+    <!-- Tablas de datos -->
+    <section class="data-table">
       <h2>📋 Tabla de Frecuencias</h2>
       <table>
         <thead>
           <tr>
-            <th>Frecuencia</th>
+            <th>Categoría</th>
             <th>FA</th>
             <th>FR (%)</th>
             <th>FAA</th>
             <th>FRA (%)</th>
           </tr>
         </thead>
-        <tbody id="data-table-body">
-          <!-- JS llenará los datos -->
-        </tbody>
+        <tbody id="data-table-body"></tbody>
+      </table>
+    </section>
+
+    <section class="data-table">
+      <h2>📊 Tabla Comparativa por Valor de Ponderación</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Respuesta</th>
+            <th>Ponderación</th>
+            <th>FA</th>
+            <th>Ponderación x FA</th>
+          </tr>
+        </thead>
+        <tbody id="comparativa-table-body"></tbody>
       </table>
     </section>
   </div>
+
   <script src="dashboard.js"></script>
 </body>
 </html>
