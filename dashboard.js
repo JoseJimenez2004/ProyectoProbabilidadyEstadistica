@@ -1,52 +1,67 @@
-const categorias = ["CADA MES", "CADA 3-6 MESES", "RARA VEZ", "NUNCA"];
-const FA = [1, 11, 39, 8];
-const FAA = [1, 12, 51, 59];
-const FR = [0.0169, 0.1864, 0.6610, 0.1356];
-const FRA = [0.0169, 0.1902, 0.8475, 0.9831];
-const clases = [30, 30.5, 31, 31.5];
+const datos = [
+  { categoria: "Cada mes", FA: 1, FAA: 1, FR: 0.0169, FRA: 0.0169, ponderacion: 1 },
+  { categoria: "Cada 3-6 meses", FA: 11, FAA: 12, FR: 0.1864, FRA: 0.2033, ponderacion: 2 },
+  { categoria: "Rara vez", FA: 39, FAA: 51, FR: 0.6610, FRA: 0.8644, ponderacion: 3 },
+  { categoria: "Nunca", FA: 8, FAA: 59, FR: 0.1356, FRA: 1.0, ponderacion: 4 },
+];
 
-// Estadísticas
 const media = 30.93;
 const mediana = 30.5;
+const moda = 31; // Rara vez (mayor FA)
+const rango = 31.5 - 30; // 1.5
 const varianza = 0.0981;
 const desviacion = 0.3132;
+const coefVariacion = (desviacion / media) * 100;
 
 document.getElementById("media").textContent = media.toFixed(2);
 document.getElementById("mediana").textContent = mediana.toFixed(2);
+document.getElementById("moda").textContent = moda;
+document.getElementById("rango").textContent = rango.toFixed(2);
 document.getElementById("varianza").textContent = varianza.toFixed(4);
 document.getElementById("desviacion").textContent = desviacion.toFixed(4);
+document.getElementById("cv").textContent = coefVariacion.toFixed(2) + "%";
 
-// Tabla
-const tbody = document.getElementById("data-table-body");
-categorias.forEach((cat, i) => {
-  const tr = document.createElement("tr");
-  tr.innerHTML = `
-    <td>${cat}</td>
-    <td>${FA[i]}</td>
-    <td>${(FR[i] * 100).toFixed(2)}</td>
-    <td>${FAA[i]}</td>
-    <td>${(FRA[i] * 100).toFixed(2)}</td>
-  `;
-  tbody.appendChild(tr);
+// ------------------------ Tablas ------------------------
+const tableBody = document.getElementById("data-table-body");
+datos.forEach(d => {
+  tableBody.innerHTML += `<tr>
+    <td>${d.categoria}</td>
+    <td>${d.FA}</td>
+    <td>${(d.FR * 100).toFixed(2)}%</td>
+    <td>${d.FAA}</td>
+    <td>${(d.FRA * 100).toFixed(2)}%</td>
+  </tr>`;
 });
+
+const comparativaBody = document.getElementById("comparativa-table-body");
+datos.forEach(d => {
+  comparativaBody.innerHTML += `<tr>
+    <td>${d.categoria}</td>
+    <td>${d.ponderacion}</td>
+    <td>${d.FA}</td>
+    <td>${d.FA * d.ponderacion}</td>
+  </tr>`;
+});
+
+// ------------------------ Gráficas ------------------------
+const labels = datos.map(d => d.categoria);
+const fa = datos.map(d => d.FA);
+const fr = datos.map(d => +(d.FR * 100).toFixed(2));
+const faa = datos.map(d => d.FAA);
 
 // Bar Chart
 new Chart(document.getElementById("barChart"), {
   type: "bar",
   data: {
-    labels: categorias,
+    labels,
     datasets: [{
-      label: "FA",
-      data: FA,
-      backgroundColor: "#3fb950"
-    }]
+      label: "Frecuencia Absoluta",
+      data: fa,
+      backgroundColor: "#00b4d8",
+    }],
   },
   options: {
-    plugins: { legend: { display: false } },
-    scales: {
-      x: { ticks: { color: "#c9d1d9" }, grid: { color: "#21262d" } },
-      y: { beginAtZero: true, ticks: { color: "#c9d1d9" }, grid: { color: "#21262d" } }
-    }
+    animation: { duration: 1000 }
   }
 });
 
@@ -54,54 +69,80 @@ new Chart(document.getElementById("barChart"), {
 new Chart(document.getElementById("pieChart"), {
   type: "pie",
   data: {
-    labels: categorias,
+    labels,
     datasets: [{
-      data: FR.map(f => (f * 100).toFixed(2)),
-      backgroundColor: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728"]
-    }]
+      label: "Distribución %",
+      data: fr,
+      backgroundColor: ["#0096c7", "#00b4d8", "#48cae4", "#90e0ef"],
+    }],
   },
-  options: {
-    plugins: {
-      legend: { labels: { color: "#c9d1d9" } }
-    }
-  }
 });
 
-// Scatter Chart (Dispersión)
+// Scatter Chart
 new Chart(document.getElementById("scatterChart"), {
   type: "scatter",
   data: {
     datasets: [{
-      label: "FA vs Clase",
-      data: clases.map((x, i) => ({ x: x, y: FA[i] })),
-      backgroundColor: "#facc15"
+      label: "FA vs Categoría",
+      data: fa.map((y, i) => ({ x: i + 1, y })),
+      backgroundColor: "#023e8a"
     }]
   },
   options: {
     scales: {
-      x: { title: { display: true, text: "Clase", color: "#c9d1d9" }, ticks: { color: "#c9d1d9" } },
-      y: { title: { display: true, text: "FA", color: "#c9d1d9" }, ticks: { color: "#c9d1d9" } }
+      x: { title: { display: true, text: "Categoría (Índice)" } },
+      y: { title: { display: true, text: "FA" } }
     }
   }
 });
 
-// Line Chart (FAA)
+// Line Chart
 new Chart(document.getElementById("lineChart"), {
   type: "line",
   data: {
-    labels: categorias,
+    labels,
     datasets: [{
-      label: "Frecuencia Acumulada (FAA)",
-      data: FAA,
-      fill: true,
-      borderColor: "#38bdf8",
-      backgroundColor: "rgba(56, 189, 248, 0.2)"
+      label: "FAA",
+      data: faa,
+      fill: false,
+      borderColor: "#0077b6",
+      tension: 0.3
     }]
-  },
-  options: {
-    scales: {
-      x: { ticks: { color: "#c9d1d9" } },
-      y: { beginAtZero: true, ticks: { color: "#c9d1d9" } }
-    }
+  }
+});
+
+// Combo Chart
+new Chart(document.getElementById("comboChart"), {
+  type: "bar",
+  data: {
+    labels,
+    datasets: [
+      {
+        type: 'bar',
+        label: 'FA',
+        data: fa,
+        backgroundColor: '#90e0ef'
+      },
+      {
+        type: 'line',
+        label: 'FR (%)',
+        data: fr,
+        borderColor: '#023e8a',
+        fill: false
+      }
+    ]
+  }
+});
+
+// Simulación Boxplot (como líneas, no nativo en Chart.js)
+new Chart(document.getElementById("boxplotChart"), {
+  type: "bar",
+  data: {
+    labels: labels,
+    datasets: [{
+      label: 'Media de clase simulada',
+      data: [30, 30.5, 31, 31.5],
+      backgroundColor: '#0077b6'
+    }]
   }
 });
