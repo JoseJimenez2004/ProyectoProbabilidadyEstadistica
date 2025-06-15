@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard Profesional - Seguridad de Contraseñas</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="dashboard-container">
+    <header class="fade-in">
+      <h1>🔐 Dashboard de Seguridad</h1>
+      <p>Estadísticas sobre la frecuencia de cambio de contraseñas</p>
+    </header>
+
+    <!-- Métricas principales -->
+    <section class="metrics">
+      <div class="metric-card fade-in">
+        <h3>Media</h3>
+        <p id="media">--</p>
+      </div>
+      <div class="metric-card fade-in">
+        <h3>Mediana</h3>
+        <p id="mediana">--</p>
+      </div>
+      <div class="metric-card fade-in">
+        <h3>Varianza</h3>
+        <p id="varianza">--</p>
+      </div>
+      <div class="metric-card fade-in">
+        <h3>Desviación Est.</h3>
+        <p id="desviacion">--</p>
+      </div>
+    </section>
+
+    <!-- Gráficas -->
+    <section class="charts-grid">
+      <div class="chart-box fade-in">
+        <h4>📊 Frecuencia Absoluta</h4>
+        <canvas id="barChart"></canvas>
+      </div>
+      <div class="chart-box fade-in">
+        <h4>📈 Distribución Porcentual</h4>
+        <canvas id="pieChart"></canvas>
+      </div>
+      <div class="chart-box fade-in">
+        <h4>📉 Dispersión (FA vs Media)</h4>
+        <canvas id="scatterChart"></canvas>
+      </div>
+      <div class="chart-box fade-in">
+        <h4>📆 Progresión Acumulativa (FAA)</h4>
+        <canvas id="lineChart"></canvas>
+      </div>
+    </section>
+
+    <!-- Tabla de datos -->
+    <section class="data-table fade-in">
+      <h2>📋 Tabla de Frecuencias</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Frecuencia</th>
+            <th>FA</th>
+            <th>FR (%)</th>
+            <th>FAA</th>
+            <th>FRA (%)</th>
+          </tr>
+        </thead>
+        <tbody id="data-table-body">
+          <!-- JS llenará los datos -->
+        </tbody>
+      </table>
+    </section>
+  </div>
+  <script src="dashboard.js"></script>
+</body>
+</html>
