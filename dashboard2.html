@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - Correos Sospechosos y Seguridad</title>
+  <link rel="stylesheet" href="static/dashboard.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="dashboard-container">
+    <header>
+      <h1>Dashboard - Correos Sospechosos y Seguridad en el CI</h1>
+      <p>Visualización estadística sobre la frecuencia de correos sospechosos y percepción de seguridad institucional.</p>
+    </header>
+
+    <div class="metrics-horizontal">
+      <div class="metric-card"><h3>Media</h3><p id="media"></p></div>
+      <div class="metric-card"><h3>Mediana</h3><p id="mediana"></p></div>
+      <div class="metric-card"><h3>Moda</h3><p id="moda"></p></div>
+      <div class="metric-card"><h3>Varianza</h3><p id="varianza"></p></div>
+      <div class="metric-card"><h3>Desviación</h3><p id="desviacion"></p></div>
+      <div class="metric-card"><h3>Rango</h3><p id="rango"></p></div>
+      <div class="metric-card"><h3>Coef. de Variación</h3><p id="cv"></p></div>
+    </div>
+
+    <div class="data-table">
+      <h2>Tabla de Frecuencias</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Respuesta</th>
+            <th>FA</th>
+            <th>FR</th>
+            <th>FAA</th>
+            <th>FRA</th>
+          </tr>
+        </thead>
+        <tbody id="data-table-body"></tbody>
+      </table>
+    </div>
+
+    <div class="data-table">
+      <h2>Comparativa por Valor de Ponderación</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Respuesta</th>
+            <th>Ponderación</th>
+            <th>FA</th>
+            <th>Ponderación x FA</th>
+          </tr>
+        </thead>
+        <tbody id="comparativa-table-body"></tbody>
+      </table>
+    </div>
+
+    <div class="charts-section">
+      <div class="chart-box">
+        <canvas id="barChart"></canvas>
+      </div>
+      <div class="chart-box">
+        <canvas id="pieChart"></canvas>
+      </div>
+      <div class="chart-box">
+        <canvas id="lineChart"></canvas>
+      </div>
+      <div class="chart-box">
+        <canvas id="scatterChart"></canvas>
+      </div>
+      <div class="chart-box">
+        <canvas id="boxplotChart"></canvas>
+      </div>
+      <div class="chart-box">
+        <canvas id="comboChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script src="static/dashboard2.js"></script>
+</body>
+</html>
