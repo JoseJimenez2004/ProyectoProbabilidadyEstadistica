@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carátula - Dashboard IPN</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to right, #f8fafc, #e2e8f0);
+      color: #1f2937;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 2rem;
+      overflow-x: hidden;
+    }
+
+    /* LOGOS */
+    .logo-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 90%;
+      max-width: 960px;
+      margin-bottom: 2rem;
+      animation: fadeInZoom 1s ease forwards;
+      animation-delay: 0.3s;
+      opacity: 0;
+    }
+
+    .logo-container img {
+      height: 90px;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+      transition: transform 0.4s ease;
+      cursor: pointer;
+      border-radius: 12px;
+      will-change: transform;
+    }
+
+    .logo-container img:hover {
+      transform: scale(1.12) rotate(3deg);
+      filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.25));
+    }
+
+    /* TÍTULOS */
+    .central-title {
+      text-align: center;
+      margin-bottom: 3rem;
+      animation: fadeInSlideDown 1s ease forwards;
+      animation-delay: 0.6s;
+      opacity: 0;
+      position: relative;
+      /* Sombra pulsante */
+      text-shadow: 0 0 8px rgba(30, 58, 138, 0.6);
+      animation-name: fadeInSlideDown, pulseShadow;
+      animation-duration: 1s, 3s;
+      animation-iteration-count: 1, infinite;
+      animation-timing-function: ease, ease-in-out;
+      animation-delay: 0.6s, 1.6s;
+    }
+
+    .central-title h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: #1e3a8a;
+      margin-bottom: 0.5rem;
+    }
+
+    .central-title h2 {
+      font-size: 1.3rem;
+      color: #475569;
+      font-weight: 500;
+      margin: 0.2rem;
+    }
+
+    /* INFO BOX */
+    .info-box {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 1.25rem;
+      padding: 2rem 2.5rem;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+      max-width: 720px;
+      width: 100%;
+      animation: fadeInSlideUp 1s ease forwards;
+      animation-delay: 0.9s;
+      opacity: 0;
+    }
+
+    .info-box p {
+      font-size: 1.05rem;
+      margin-bottom: 0.5rem;
+      color: #334155;
+      line-height: 1.4;
+    }
+
+    .info-box p strong {
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .integrantes {
+      margin-top: 1rem;
+      padding-left: 1.1rem;
+    }
+
+    .integrantes p {
+      margin-bottom: 0.3rem;
+      position: relative;
+      padding-left: 1.2rem;
+      font-weight: 500;
+      color: #1f2937;
+    }
+
+    /* Añadimos un pequeño bullet personalizado */
+    .integrantes p::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #3b82f6;
+      font-weight: 700;
+      font-size: 1.2rem;
+      top: 0;
+      line-height: 1;
+    }
+
+    /* BOTONES */
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      justify-content: center;
+      margin: 3rem 0 1rem;
+      animation: fadeInSlideUp 1s ease forwards;
+      animation-delay: 1.2s;
+      opacity: 0;
+    }
+
+    .buttons a {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: white;
+      padding: 0.75rem 1.6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 1.05rem;
+      text-decoration: none;
+      transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+      will-change: transform, box-shadow;
+      user-select: none;
+      cursor: pointer;
+    }
+
+    .buttons a:hover {
+      transform: translateY(-6px) scale(1.05);
+      box-shadow: 0 10px 30px rgba(37, 99, 235, 0.6);
+      background: linear-gradient(135deg, #1e40af, #1e3a8a);
+    }
+
+    /* FECHA */
+    .date {
+      font-size: 0.95rem;
+      color: #6b7280;
+      font-style: italic;
+      margin-top: 0.5rem;
+      animation: fadeIn 1s ease forwards;
+      animation-delay: 1.5s;
+      opacity: 0;
+    }
+
+    /* ANIMACIONES */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInZoom {
+      0% {
+        opacity: 0;
+        transform: scale(0.7);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes fadeInSlideDown {
+      0% {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInSlideUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulseShadow {
+      0%, 100% {
+        text-shadow: 0 0 8px rgba(30, 58, 138, 0.6);
+      }
+      50% {
+        text-shadow: 0 0 15px rgba(59, 130, 246, 0.9);
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="logo-container">
+    <img src="img/ipn.png" alt="Logo IPN" />
+    <img src="img/escom.png" alt="Logo ESCOM" />
+  </div>
+
+  <div class="central-title">
+    <h1>Instituto Politécnico Nacional</h1>
+    <h2>Escuela Superior de Cómputo</h2>
+    <h2>Materia: Probabilidad y Estadística</h2>
+  </div>
+
+  <div class="info-box">
+    <p><strong>Proyecto:</strong> Análisis estadístico de seguridad informática</p>
+    <p><strong>Profesora:</strong> Claudia García-Blanquel</p>
+    <p><strong>Integrantes:</strong></p>
+    <div class="integrantes">
+      <p>Alva Pérez Alan Freddy</p>
+      <p>Cabrera Archundia Rene Alejandro</p>
+      <p>Guerrero Camacho Frida</p>
+      <p>Jiménez Velázquez José Bryan Omar</p>
+      <p>Sandoval Serrano José Miguel</p>
+      <p>Torres Vargas Jorge Alberto</p>
+    </div>
+  </div>
+
+  <div class="buttons">
+    <a href="dashboard1.html">Dashboard 1</a>
+    <a href="dashboard2.html">Dashboard 2</a>
+    <a href="dashboard3.html">Dashboard 3</a>
+  </div>
+
+  <p class="date" id="fecha"></p>
+
+  <script>
+    const fecha = new Date();
+    const opciones = { year: 'numeric', month: 'long', day: 'numeric' };
+    document.getElementById("fecha").textContent = `Fecha de entrega: ${fecha.toLocaleDateString('es-MX', opciones)}`;
+  </script>
+</body>
+</html>
