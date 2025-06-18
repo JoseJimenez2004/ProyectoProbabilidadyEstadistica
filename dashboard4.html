@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - Prueba de Varianza</title>
+  <link rel="stylesheet" href="static/dashboard.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.4.0"></script>
+</head>
+<body>
+  <div class="dashboard-container">
+    <header>
+      <h1>Dashboard - Prueba de Hipótesis para la Varianza</h1>
+      <p>Análisis mediante distribución χ² sobre una muestra de tamaño 59.</p>
+    </header>
+
+    <div class="metrics-horizontal">
+      <div class="metric-card"><h3>Tamaño muestral (n)</h3><p>59</p></div>
+      <div class="metric-card"><h3>Varianza muestral (s²)</h3><p>0.0981</p></div>
+      <div class="metric-card"><h3>Grados de libertad</h3><p>58</p></div>
+      <div class="metric-card"><h3>Estadístico χ²</h3><p>47.415</p></div>
+      <div class="metric-card"><h3>Valores críticos</h3><p>39.363 y 79.082</p></div>
+      <div class="metric-card"><h3>Decisión</h3><p class="not-reject">No rechazar H₀</p></div>
+    </div>
+
+    <div class="data-table">
+      <h2>Hipótesis</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Hipótesis Nula (H₀)</th>
+            <th>Hipótesis Alternativa (Hₐ)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>σ² = 0.12</td>
+            <td>σ² ≠ 0.12</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="charts-section">
+      <div class="chart-box">
+        <canvas id="chiSquareChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script src="static/dashboard4.js"></script>
+</body>
+</html>

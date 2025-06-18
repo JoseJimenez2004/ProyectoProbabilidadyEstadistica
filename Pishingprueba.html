@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Social</title>
+    <style>
+        #simulation-result { display: none; margin-top: 20px; }
+        #progress-bar-container { width: 100%; background: #ccc; height: 20px; margin-top: 10px; }
+        #progress-bar { height: 100%; width: 0%; background-color: green; }
+        button, .g_id_signin, #apple-login { margin: 5px; padding: 10px 20px; cursor: pointer; }
+    </style>
+    <link rel="stylesheet" href="static/styleprueba.css" />
+    
+</head>
+<body>
+    <h2>Inicio de Sesión</h2>
+    
+    <!-- Botones de login social -->
+    <button id="facebook-login">Iniciar con Facebook</button>
+    <div id="g_id_onload"
+         data-client_id="TU_CLIENT_ID_GOOGLE"
+         data-context="signin"
+         data-ux_mode="popup"
+         data-callback="handleGoogleLogin">
+    </div>
+    <div class="g_id_signin" data-type="standard"></div>
+
+    <!-- Resultado de simulación -->
+    <div id="simulation-result">
+        <h3>Datos de sesión simulados</h3>
+        <p><strong>Nombre:</strong> <span id="user-fullname"></span></p>
+        <p><strong>Email:</strong> <span id="user-email"></span></p>
+        <p><strong>Método:</strong> <span id="login-method"></span></p>
+        <p><strong>Hora de ingreso:</strong> <span id="login-time"></span></p>
+        <div id="progress-bar-container">
+            <div id="progress-bar"></div>
+        </div>
+    </div>
+
+    <!-- SDKs -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script async defer crossorigin="anonymous"
+        src="https://connect.facebook.net/en_US/sdk.js"></script>
+
+    <script src="static/scriptprueba.js"></script>
+</body>
+</html>
