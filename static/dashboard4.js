@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const alpha = 0.05;
     const lowerCritical = 39.363;
     const upperCritical = 79.082;
-    const testStatistic = 47.415;
+    const testStatistic = 3.844; // actualizado
 
     // Generar datos para la curva chi-cuadrado
     function chiSquarePDF(x, df) {
